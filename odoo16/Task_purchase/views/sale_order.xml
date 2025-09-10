@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Desc Note Field within sale.order.line in sale.order form -->
+    <record model="ir.ui.view" id="Sale_order_modify_form">
+        <field name="name">Sale_order Modify Form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/> <!-- ensure this exists -->
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                <field name="note_desc"/>
+            </xpath>
+
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="note_des"/>
+            </xpath>
+
+           <!--
+            <field name="validity_date" position="after">
+                <field name="note_des"/>
+            </field>
+
+
+            <field name="product_uom_qty" position="before">
+                <field name="Products_Notes"/>
+            </field>
+            -->
+        </field>
+    </record>
+
+     Inherit Form View to Modify it
+<!--    <record id="Sale_order_Modify_Tree" model="ir.ui.view">-->
+<!--        <field name="name">Sale_order Modify Tree</field>-->
+<!--        <field name="model">sale.order</field>-->
+<!--        <field name="inherit_id" ref="sale.view_order_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+
+<!--&lt;!&ndash;            <xpath expr="//control" position="inside">&ndash;&gt;-->
+<!--&lt;!&ndash;                <button name="export_selected_orders" type="object"&ndash;&gt;-->
+<!--&lt;!&ndash;                        string="Export Selected Orders" class="btn-primary"&ndash;&gt;-->
+<!--&lt;!&ndash;                        icon="fa-download" context="{'export_data': True}" />&ndash;&gt;-->
+<!--&lt;!&ndash;            </xpath>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <xpath expr="//tree" position="before">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button name="export_selected_orders" type="object"&ndash;&gt;-->
+<!--&lt;!&ndash;                            string="Export Selected Orders" class="btn-primary"&ndash;&gt;-->
+<!--&lt;!&ndash;                            icon="fa-download"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            </xpath>&ndash;&gt;-->
+
+<!--        </field>-->
+<!--    </record>-->
+</odoo>
