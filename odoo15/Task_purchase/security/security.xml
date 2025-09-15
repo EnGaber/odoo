@@ -1,0 +1,9 @@
+<odoo>
+    <record id="group_purchase_request_user" model="res.groups">
+        <field name="name">Purchase Request User</field>
+    </record>
+
+    <record id="group_purchase_request_manager" model="res.groups">
+        <field name="name">Purchase Request Manager</field>
+    </record>
+</odoo>

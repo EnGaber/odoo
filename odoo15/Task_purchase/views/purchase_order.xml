@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+<!--    <record id="action_export_to_excel" model="ir.actions.server">-->
+<!--        <field name="name">Export to Excel</field>-->
+<!--        <field name="model_id" ref="model_purchase_order"/>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="code">-->
+<!--            action = {-->
+<!--            'type': 'ir.actions.act_url',-->
+<!--            'url': '/purchase_order/export_excel',-->
+<!--            'target': 'self',-->
+<!--            }-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record model="ir.ui.view" id="purchase_order_modify_custom1_tree">
+        <field name="name">Purchase.order.tree.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"/> <!-- ensure this exists -->
+        <field name="arch" type="xml">
+
+            <header position="inside">
+                <button name="export_selected_orders" type="object" string="Export to Excel"
+                        class="btn-primary" icon="fa-download"/>
+            </header>
+
+
+            <field name="date_planned" position="before">
+                <field name="note_des"/> <!-- Corrected field name -->
+            </field>
+
+            <xpath expr="//field[@name='date_approve']" position="before">
+                <field name="order_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+
+    <!-- to create automatically form used <odoo_form> -->
+
+<!--     Inherit Form View to Modify it -->
+    <record id="purchase_order_form_inherit_one" model="ir.ui.view">
+        <field name="name">purchase form inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="note_des"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="note_desc"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="view_purchase_order_form_inherit_smart_Button" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit_smart_Button</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_receipts"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-tasks"
+                        attrs="{'invisible': ['|', ('state', '!=', 'purchase'), ('receipt_count', '&lt;=', 0)]}">
+                    <field name="receipt_count" string="Orders" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+<!--    <div class="oe_chatter">-->
+<!--        <field name="message_follower_ids"/>-->
+<!--        <field name="activity_ids"/>-->
+<!--        <field name="message_ids"/>-->
+<!--    </div>-->
+
+
+    <!-- Inherit Form View to Add Chatter -->
+    <record id="purchase_order_form_inherit_chatter" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.chatter</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+
+
+</odoo>
